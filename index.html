@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promptly — Your copywriter quit. We didn't.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #0F172A;
+      --navy-light: #1E293B;
+      --navy-mid: #162036;
+      --blue: #3B82F6;
+      --blue-glow: #60A5FA;
+      --blue-dim: #2563EB;
+      --white: #F8FAFC;
+      --gray: #94A3B8;
+      --gray-light: #CBD5E1;
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(59, 130, 246, 0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      position: relative;
+    }
+
+    .logo-text {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-cta {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 0.6rem 1.5rem;
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--blue-dim);
+      box-shadow: 0 0 24px rgba(59, 130, 246, 0.3);
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 6rem;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* geometric accents */
+    .geo {
+      position: absolute;
+      border: 1px solid rgba(59, 130, 246, 0.12);
+      border-radius: 4px;
+      pointer-events: none;
+    }
+    .geo-1 { width: 120px; height: 120px; top: 15%; left: 8%; transform: rotate(15deg); }
+    .geo-2 { width: 80px; height: 80px; top: 25%; right: 10%; transform: rotate(-20deg); border-radius: 50%; }
+    .geo-3 { width: 60px; height: 60px; bottom: 20%; left: 12%; transform: rotate(45deg); }
+    .geo-4 { width: 100px; height: 100px; bottom: 15%; right: 7%; transform: rotate(10deg); border-color: rgba(59, 130, 246, 0.07); }
+    .geo-5 { width: 40px; height: 40px; top: 40%; left: 4%; border-radius: 50%; border-color: rgba(59, 130, 246, 0.15); }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1rem;
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.15);
+      border-radius: 100px;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--blue-glow);
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--blue);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      max-width: 780px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 .blue { color: var(--blue); }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--gray);
+      max-width: 480px;
+      line-height: 1.65;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 1rem 2.2rem;
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.25s, transform 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-cta:hover {
+      background: var(--blue-dim);
+      box-shadow: 0 4px 32px rgba(59, 130, 246, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .hero-cta svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.2s;
+    }
+
+    .hero-cta:hover svg { transform: translateX(3px); }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--gray);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-family: var(--font-display);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, var(--blue), transparent);
+      animation: scroll-fade 2s ease-in-out infinite;
+    }
+
+    @keyframes scroll-fade {
+      0%, 100% { opacity: 0.3; height: 32px; }
+      50% { opacity: 1; height: 40px; }
+    }
+
+    /* ─── SECTION SHARED ─── */
+    section {
+      padding: 6rem 2rem;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--blue);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--gray);
+      line-height: 1.6;
+      max-width: 520px;
+    }
+
+    /* ─── PRODUCTS ─── */
+    #products {
+      background: var(--navy);
+      position: relative;
+    }
+
+    #products::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(59, 130, 246, 0.15), transparent);
+    }
+
+    .products-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .products-header .section-desc {
+      margin: 0 auto;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: var(--navy-mid);
+      border: 1px solid rgba(59, 130, 246, 0.08);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .product-card:hover {
+      border-color: rgba(59, 130, 246, 0.2);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .product-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--blue), var(--blue-glow));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .product-card:hover::after { opacity: 1; }
+
+    .product-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(59, 130, 246, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .product-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--blue);
+    }
+
+    .product-tag {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--blue-glow);
+      background: rgba(59, 130, 246, 0.08);
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .product-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+    }
+
+    .product-desc {
+      font-size: 0.95rem;
+      color: var(--gray);
+      line-height: 1.55;
+      margin-bottom: 1.5rem;
+    }
+
+    .product-includes {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .product-includes li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--gray-light);
+      padding: 0.4rem 0;
+    }
+
+    .product-includes li .check {
+      width: 16px;
+      height: 16px;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+
+    .product-price {
+      display: flex;
+      align-items: baseline;
+      gap: 0.35rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .price-currency {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: var(--gray);
+    }
+
+    .price-amount {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 3rem;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .price-note {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-left: 0.25rem;
+    }
+
+    .product-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.9rem;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    .product-btn-primary {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .product-btn-primary:hover {
+      background: var(--blue-dim);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+    }
+
+    .product-btn-secondary {
+      background: rgba(59, 130, 246, 0.08);
+      color: var(--blue-glow);
+      border: 1px solid rgba(59, 130, 246, 0.15);
+    }
+
+    .product-btn-secondary:hover {
+      background: rgba(59, 130, 246, 0.14);
+      border-color: rgba(59, 130, 246, 0.25);
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: var(--blue);
+      color: var(--white);
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+    }
+
+    /* ─── WHY SECTION ─── */
+    #why {
+      position: relative;
+    }
+
+    #why::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(59, 130, 246, 0.15), transparent);
+    }
+
+    .why-header {
+      margin-bottom: 3.5rem;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .why-card {
+      background: var(--navy-mid);
+      border: 1px solid rgba(59, 130, 246, 0.06);
+      border-radius: 14px;
+      padding: 2rem 1.75rem;
+      transition: border-color 0.3s;
+    }
+
+    .why-card:hover {
+      border-color: rgba(59, 130, 246, 0.15);
+    }
+
+    .why-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 1.25rem;
+      color: var(--blue);
+    }
+
+    .why-card h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.6rem;
+    }
+
+    .why-card p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.55;
+    }
+
+    /* ─── BOTTOM CTA ─── */
+    .bottom-cta {
+      text-align: center;
+      padding: 5rem 2rem 6rem;
+      position: relative;
+    }
+
+    .bottom-cta::before {
+      content: '';
+      position: absolute;
+      bottom: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .bottom-cta h2 {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .bottom-cta p {
+      color: var(--gray);
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid rgba(59, 130, 246, 0.08);
+      padding: 2.5rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .logo-text { font-size: 1.1rem; }
+      .hero { padding: 7rem 1.5rem 5rem; min-height: auto; }
+      .hero h1 { font-size: 2.4rem; }
+      .hero-sub { font-size: 1rem; }
+      .geo { display: none; }
+      .scroll-hint { display: none; }
+      .products-grid { grid-template-columns: 1fr; }
+      .product-card { padding: 2rem 1.5rem; }
+      .why-grid { grid-template-columns: 1fr; }
+      section { padding: 4rem 1.5rem; }
+      .footer-inner { flex-direction: column; gap: 1.25rem; text-align: center; }
+      .footer-links { gap: 1.25rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2rem; }
+      .nav-cta { padding: 0.5rem 1rem; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">
+      <svg class="logo-mark" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="32" height="28" rx="14" fill="#3B82F6"/>
+        <polygon points="18,24 10,32 12,26" fill="#3B82F6"/>
+        <path d="M18 9 L19.5 14 L21 11 L22.5 14 L24 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="18" cy="15" r="1.5" fill="white" opacity="0.9"/>
+        <line x1="14" y1="19" x2="22" y2="19" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+      <span class="logo-text">Promptly</span>
+    </a>
+    <a href="https://gumroad.com/promptly" class="nav-cta">Get Templates</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="geo geo-1"></div>
+    <div class="geo geo-2"></div>
+    <div class="geo geo-3"></div>
+    <div class="geo geo-4"></div>
+    <div class="geo geo-5"></div>
+
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Prompt templates that actually convert
+    </div>
+
+    <h1>Your copywriter quit.<br><span class="blue">We didn't.</span></h1>
+
+    <p class="hero-sub">AI writes like a robot. Humans are slow and expensive. Promptly gives you pro-level prompt templates so every output sounds like you hired both.</p>
+
+    <a href="https://gumroad.com/promptly" class="hero-cta">
+      Browse Templates
+      <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h10M10 5l4 4-4 4"/></svg>
+    </a>
+
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="container">
+      <div class="products-header">
+        <div class="section-label">Bundles</div>
+        <h2 class="section-title">Pick your prompts. Skip the guesswork.</h2>
+        <p class="section-desc">Two bundles, zero fluff. Each one's packed with tested, ready-to-paste templates that make AI sound human.</p>
+      </div>
+
+      <div class="products-grid">
+        <!-- E-Commerce Bundle -->
+        <div class="product-card">
+          <span class="popular-badge">Best Seller</span>
+          <div class="product-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          </div>
+          <span class="product-tag">E-Commerce</span>
+          <h3 class="product-name">E-Commerce Bundle</h3>
+          <p class="product-desc">Product descriptions, ad copy, email sequences, landing pages — everything your store needs to sell without sounding like a chatbot.</p>
+          <ul class="product-includes">
+            <li><svg class="check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3.5 8.5 6.5 11.5 12.5 5.5"/></svg>50+ product description prompts</li>
+            <li><svg class="check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3.5 8.5 6.5 11.5 12.5 5.5"/></svg>Ad copy for Meta, Google & TikTok</li>
+            <li><svg class="check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3.5 8.5 6.5 11.5 12.5 5.5"/></svg>Email flows (welcome, cart, win-back)</li>
+            <li><svg class="check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3.5 8.5 6.5 11.5 12.5 5.5"/></svg>SEO & landing page templates</li>
+          </ul>
+          <div class="product-price">
+            <span class="price-currency">$</span>
+            <span class="price-amount">47</span>
+            <span class="price-note">one-time</span>
+          </div>
+          <a href="https://gumroad.com/promptly" class="product-btn product-btn-primary">Get the E-Commerce Bundle</a>
+        </div>
+
+        <!-- Creator Bundle -->
+        <div class="product-card">
+          <div class="product-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <span class="product-tag">Creator</span>
+          <h3 class="product-name">Creator Bundle</h3>
+          <p class="product-desc">Social posts, newsletters, video scripts, hooks — everything a content creator needs to stay consistent without burning out.</p>
+          <ul class="product-includes">
+            <li><svg class="check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3.5 8.5 6.5 11.5 12.5 5.5"/></svg>40+ social media prompts</li>
+            <li><svg class="check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3.5 8.5 6.5 11.5 12.5 5.5"/></svg>Newsletter & blog frameworks</li>
+            <li><svg class="check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3.5 8.5 6.5 11.5 12.5 5.5"/></svg>Video scripts & hooks library</li>
+            <li><svg class="check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3.5 8.5 6.5 11.5 12.5 5.5"/></svg>Thread & carousel templates</li>
+          </ul>
+          <div class="product-price">
+            <span class="price-currency">$</span>
+            <span class="price-amount">37</span>
+            <span class="price-note">one-time</span>
+          </div>
+          <a href="https://gumroad.com/promptly" class="product-btn product-btn-secondary">Get the Creator Bundle</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY PROMPTLY -->
+  <section id="why">
+    <div class="container">
+      <div class="why-header">
+        <div class="section-label">Why Promptly</div>
+        <h2 class="section-title">The middle ground that didn't exist.</h2>
+        <p class="section-desc">Hiring's slow. AI's soulless. Promptly sits right in between — fast, human-sounding, and absurdly affordable.</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card">
+          <svg class="why-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="20" cy="20" r="16"/>
+            <polyline points="20 12 20 20 26 24"/>
+          </svg>
+          <h3>Done in seconds</h3>
+          <p>Paste a template, fill in a few blanks, hit generate. Entire campaigns in the time it takes to write a Slack message.</p>
+        </div>
+        <div class="why-card">
+          <svg class="why-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6 C12 6 6 12 6 20 C6 28 12 34 20 34 C28 34 34 28 34 20"/>
+            <path d="M20 6 C24 6 26 12 26 20 C26 28 24 34 20 34"/>
+            <path d="M20 6 C16 6 14 12 14 20 C14 28 16 34 20 34"/>
+            <line x1="6" y1="20" x2="34" y2="20"/>
+          </svg>
+          <h3>Sounds like a human</h3>
+          <p>Every template is engineered to kill robot voice. The output reads like someone who knows your brand, your audience, and your tone.</p>
+        </div>
+        <div class="why-card">
+          <svg class="why-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="8" width="24" height="24" rx="4"/>
+            <line x1="8" y1="16" x2="32" y2="16"/>
+            <line x1="16" y1="16" x2="16" y2="32"/>
+          </svg>
+          <h3>Works everywhere</h3>
+          <p>ChatGPT, Claude, Gemini — doesn't matter. These templates work with any AI. No lock-in, no plugins, no setup.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <div class="bottom-cta">
+    <h2>Stop staring at blank prompts.</h2>
+    <p>Grab a bundle. Start shipping copy today.</p>
+    <a href="https://gumroad.com/promptly" class="hero-cta">
+      Get Promptly
+      <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h10M10 5l4 4-4 4"/></svg>
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <svg width="20" height="20" viewBox="0 0 36 36" fill="none"><rect x="2" y="2" width="32" height="28" rx="14" fill="#3B82F6"/><polygon points="18,24 10,32 12,26" fill="#3B82F6"/><circle cx="18" cy="15" r="1.5" fill="white" opacity="0.9"/></svg>
+        <span class="footer-copy">&copy; 2026 Promptly. All rights reserved.</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://gumroad.com/promptly">Shop</a></li>
+        <li><a href="mailto:hello@promptly.ai">Contact</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Privacy</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>
